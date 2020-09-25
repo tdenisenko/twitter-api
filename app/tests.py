@@ -19,6 +19,12 @@ class TwitterApiTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTrue('python' in response.json()[0]['content'].lower())
 
+    def test_limit(self):
+        """Limit parameter should return same amount of results"""
+        response = self.client.get('/users/twitter/?limit=5', HTTP_ACCEPT='application/json')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.json()), 5)
+
     def test_limit_default(self):
         """Default limit should return 30 results"""
         response = self.client.get('/users/twitter/', HTTP_ACCEPT='application/json')
