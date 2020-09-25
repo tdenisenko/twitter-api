@@ -47,3 +47,10 @@ For example:
 http://localhost:8000/hashtags/python?limit=10
 
 Parameter `limit` is optional and default limit size is 30.
+
+## Unit tests
+
+```bash
+source env/bin/activate
+python manage.py test
+```
