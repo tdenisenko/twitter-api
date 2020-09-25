@@ -1,6 +1,8 @@
+"""Endpoints are defined here"""
 import json
 import subprocess
-from django.http import HttpResponse
+from django.http import JsonResponse
+
 
 def tweets_user(request, username: str):
     """Endpoint for retreiving tweets from users"""
@@ -11,7 +13,7 @@ def tweets_user(request, username: str):
     command = f'snscrape --jsonl --max-results {limit} twitter-user {username}'.split()
     tweets = run_command(command)
     result = [json.loads(tweet) for tweet in tweets]
-    return HttpResponse(json.dumps(result), content_type='application/json')
+    return JsonResponse(result, safe=False)
 
 
 def tweets_hashtag(request, hashtag: str):
@@ -23,7 +25,7 @@ def tweets_hashtag(request, hashtag: str):
     command = f'snscrape --jsonl --max-results {limit} twitter-hashtag {hashtag}'.split()
     tweets = run_command(command)
     result = [json.loads(tweet) for tweet in tweets]
-    return HttpResponse(json.dumps(result), content_type='application/json')
+    return JsonResponse(result, safe=False)
 
 
 def run_command(command):
